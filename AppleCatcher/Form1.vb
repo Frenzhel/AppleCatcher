@@ -35,7 +35,9 @@
     End Property
     Private ReadOnly Property BasketSpeed As Integer
         Get
-            Return Math.Max(5, CInt(Me.ClientSize.Width * 0.025))
+            Dim baseSpeed As Integer = Math.Max(5, CInt(Me.ClientSize.Width * 0.025))
+            Dim bonus As Integer = CInt((fallSpeed - 15.0F) * 0.4F)
+            Return baseSpeed + Math.Max(0, bonus)
         End Get
     End Property
     Private ReadOnly Property HudFontSize As Single
@@ -97,7 +99,7 @@
     Private Sub UpdateScore(pointsToAdd As Integer)
         playerScore = playerScore + pointsToAdd
         catchCount = catchCount + 1
-        If catchCount Mod 5 = 0 And fallSpeed < 18.0F Then
+        If catchCount Mod 5 = 0 Then
             fallSpeed = fallSpeed * 1.25F
         End If
     End Sub
